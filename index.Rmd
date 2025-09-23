@@ -15,17 +15,15 @@ description: "Workshop materials for Intro to R"
 
 # Prerequisites {-}
 
-- Geared specifically towards users who are __new__ to R.  
+- Geared specifically towards users who are __new__ to R.   
 - Have [R](https://cran.r-project.org/) and [RStudio](https://posit.co/download/rstudio-desktop/) installed (see setup instructions below).
 
 
 ## Setup Instructions {-}
 
-[**R**](https://cran.r-project.org/) and [**RStudio**](https://posit.co/download/rstudio-desktop/) are separate downloads and installations. R is the
-underlying statistical computing environment. It can be used on its own, but using R alone is no fun. RStudio is a graphical integrated development environment (IDE) that makes using R much easier and more interactive. You need to install R before you launch RStudio. 
+[**R**](https://cran.r-project.org/) and [**RStudio**](https://posit.co/download/rstudio-desktop/) are separate downloads and installations. R is the underlying statistical computing environment. It can be used on its own, but using R alone or through its own interface is rather tedious. RStudio is a graphical integrated development environment (IDE) that makes using R much easier and has many features that make the coding experience much smoother. You need to install R before you launch RStudio. 
 
-Be aware that the most recent version of RStudio requires R version 3.3.0 or later.
-
+**It is highly recommended that you update to a recent version of R and RStudio before coming to the workshop.**
 
 ### macOS {-}
 
@@ -34,12 +32,12 @@ Be aware that the most recent version of RStudio requires R version 3.3.0 or lat
 * Open RStudio, and click on "Help" > "Check for updates". If a new version is
 	available, quit RStudio, and download the latest version for RStudio.
 * To check the version of R you are using, start RStudio and the first thing
-  that appears on the terminal indicates the version of R you are running. Alternatively, you can type `sessionInfo()`, which will also display which version of R you are running. Go on
+  that appears on the terminal indicates the version of R you are running. Alternatively, you can type `version` into the console. Go to
   the [CRAN website](https://cran.r-project.org/bin/macosx/) and check
   whether a more recent version is available. If so, please download and install
   it.
 
-#### If you don't have R and RStudio installed {-}
+#### If you **don't**  have R and RStudio installed {-}
 
 * Download R from
   the [CRAN website](http://cran.r-project.org/bin/macosx).

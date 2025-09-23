@@ -1,5 +1,6 @@
 ```{r, echo=FALSE, purl=FALSE, message = FALSE}
 knitr::opts_chunk$set(results='hide', comment = "#>", purl = FALSE)
+library(tidyverse)
 ```
 
 # R and Rstudio {#backgroud}
@@ -97,42 +98,19 @@ find some, you can report and fix bugs.
 
 
 
-## Knowing your way around RStudio
+## The RStudio IDE
 
-Let's start by learning about [RStudio](https://www.rstudio.com/), which is an
-Integrated Development Environment (IDE) for working with R.
+If you plan to work with R, RStudio will make your life much easier and greatly enhance your experience working with R.
 
-The RStudio IDE open-source product is free under the
-[Affero General Public License (AGPL) v3](https://www.gnu.org/licenses/agpl-3.0.en.html).
-The RStudio IDE is also available with a commercial license and priority email
+[RStudio](https://posit.co/products/open-source/rstudio/),is an Integrated Development Environment (IDE) for working with R. The RStudio IDE open-source product is free under the [Affero General Public License (AGPL) v3](https://www.gnu.org/licenses/agpl-3.0.en.html). The RStudio IDE is also available with a commercial license and priority email
 support from RStudio, Inc.
 
-We will use RStudio IDE to write code, navigate the files on our computer,
-inspect the variables we are going to create, and visualize the plots we will
-generate. RStudio can also be used for other things (e.g., version control,
-developing packages, writing Shiny apps) that we will not cover during the
-workshop.
+One of the advantages of using RStudio is that all the information
+you need to write code is available in a single window.
 
+We will use RStudio to write code, search for help, navigate the files on our computer, inspect the variables we are going to create, and visualize the plots we will generate. RStudio can also be used for other things (e.g., version control, developing packages, writing Shiny apps) that we will not cover during this workshop.
 
-```{r RStudio-GUI, echo=FALSE, results='asis', out.width='100%', fig.cap='The RStudio Interface'}
-knitr::include_graphics('img/rstudio-screenshot.png')
-```
-
-
-RStudio is divided into 4 "Panes": 
-
-- the **Source** for your scripts and documents
-(top-left, in the default layout), 
-- the R **Console** (bottom-left), 
-- your **Environment/History** (top-right), and 
-- your **Files/Plots/Packages/Help/Viewer** (bottom-right). 
-
-The placement of these
-panes and their content can be customized (see main Menu, Tools -> Global Options ->
-Pane Layout). One of the advantages of using RStudio is that all the information
-you need to write code is available in a single window. 
-
-## How to start an R project
+### How to start an R project
 
 ```{r, echo=FALSE, purl=TRUE}
 ### How to start an R project
@@ -168,12 +146,35 @@ Your `r-intro` directory should now look like in Figure \@ref(fig:working-dir).
 knitr::include_graphics('img/Rproject-setup.png')
 ```
 
+### Knowing your way around RStudio
 
+RStudio is divided into 4 "Panes": 
+
+- the **Source** for your scripts and documents
+(top-left, in the default layout), 
+- the R **Console** (bottom-left), 
+- your **Environment/History** (top-right), and 
+- your **Files/Plots/Packages/Help/Viewer** (bottom-right). 
+
+The placement of these panes and their content can be customized (see main Menu, Tools -> Global Options -> Pane Layout). 
+
+
+```{r RStudio-GUI, echo=FALSE, results='asis', out.width='100%', fig.cap='The RStudio Interface'}
+knitr::include_graphics('img/rstudio-screenshot.png')
+```
 
 
 ### The working directory
 
-The working directory is an important concept to understand. It is the place where R will look for and save files. Whenever you start R/RStudio it must have a working directory and will automatically determine which it is. The determination is based on how exactly you start R/RStudio (open a project, open without loading a file, open with a file, etc.). It is important you know what your working directory is. When you write code for your project, your scripts **must refer to external files always in relation to your working directory** otherwise you will get error messages.
+You will likely work with files in R, either writing them out or reading them in. 
+
+The working directory is an important concept to understand to help with managing file in- and output. It is is a file path on your computer (for example `R-intro/data/gapminder.csv`) that sets the default location of any files you read into R, or save out of R. If you ask R to import a text file, or save a table, it will assume that the file is inside of your working directory.
+
+Whenever you start R/RStudio it must have a working directory and will automatically determine which it is. The determination is based on how exactly you start R/RStudio (open an RStudio project, open without loading a file, open by clicking on a file, etc.). 
+
+You can only have one working directory active at any given time. That active working directory is also called your *current* working directory.
+
+It is important you know what your current working directory is. When you write code for your project, your scripts **must refer to external files always in relation to your working directory** otherwise you will get error messages.
 
 To check which working directory R thinks it is in:
 
@@ -187,14 +188,22 @@ To change to a different working directory in R go to the Console and type:
 setwd("Path/To/Desired/Workingdirectory")
 ```
 
-You can also use the RStudio interface to set a different working directory, like seen in Figure \@ref(fig:set-working-dir).
+You can also use the RStudio interface to go the current working director to or set a different working directory. Navigate to the Files pane and expand the drop down menu under 'More' (Figure \@ref(fig:set-working-dir)).
 
-```{r set-working-dir, echo=FALSE, results='asis', out.width='60%', fig.cap='How to set a working directory with the RStudio interface'}
-knitr::include_graphics('img/setWD.png')
+```{r set-working-dir, echo=FALSE, results='asis', out.width='60%', fig.cap='How to set a working directory in the RStudio interface'}
+knitr::include_graphics('img/wd_files_pane.png')
 ```
 
 Alternatively, you can use the shortcut <kbd>`Ctrl`</kbd> + <kbd>`Shift`</kbd> + <kbd>`H`</kbd> to set a working directory in RStudio.
 
+If you see something like this:
+
+`> read_csv("data/sample_data.csv")`   
+`Error: 'data/sample_data.csv' does not exist in current working directory`
+
+- find out what your working directory is
+- find the directory where your file is
+- check the file path you provided is correct (are there any typos?)
 
 
 ### Organizing your working directory
@@ -257,30 +266,35 @@ inside the console window and press <kbd>`Esc`</kbd>; this will cancel the incom
 command and return you to the `>` prompt.
 
 
-> <h3>Challenge</h3>
->
-> - Use R to determine what your working directory is.
-> - Use R to change your working directory to some other place. What do you notice in the RStudio Files window?
-> - Use RStudio to change back to your previous working directory (r-intro) What do you notice in the RStudio Console?
-
-
 ### RStudio Script Editor
 
-Because we want to keep our code and workflow, it is better to type
-the commands we want in the script editor, and save the script. This way, there
-is a complete record of what we did, and anyone (including our future selves!)
-can easily replicate the results on their computer.
+Now let's take a look at `r-intro-sript.R` that opened up ealier in your script editor. 
 
-Perhaps one of the most important aspects of making your code comprehensible for others and your future self is adding comments about why you did something. You can write comments directly in your script, and tell R not no execute those words simply by putting a hashtag (`#`) before you start typing the comment.
+Perhaps one of the most important aspects of making your code comprehensible for others and your future self is adding comments about why you did something. You can write comments directly in your script, and tell R not no execute those words by putting a hashtag (`#`) before you start typing the comment.
 
 ```{r eval=FALSE}
 # this is a comment on its on line
 getwd() # comments can also go here
 ```
 
-One of the first things you will notice is in the R script editor that your code is colored (syntax coloring) which enhances readibility.
+Because we want to keep our code and workflow, it is very good practice to type
+the commands we want in the script editor, and save the script. This way, there
+is a complete record of what we did, and anyone (including our future selves!)
+can easily replicate the results on their computer.
 
-Secondly, RStudio allows you to execute commands directly from the script editor by using
+RStudio makes it easy to comment or uncomment a paragraph: after selecting the
+lines you  want to comment, press at the same time on your keyboard
+<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>. If you only want to comment
+out one line, you can put the cursor at any location of that line (i.e. no need 
+to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + 
+<kbd>C</kbd>.
+
+Here are a few features of RStudio designed to make your coding easier and less error-prone.
+
+**Syntax Coloring:** You will notice in the R script editor that your code is colored. You can change these settings in Tools > Global options > Appearance. Depending on your settings function names, values, and reserved words are colored differently. This is meant to
+enhance readability and help you identify issues with the code.
+
+**Keyboard Shortcuts:** Another feature of RStudio is that it allows you to execute commands directly from the script editor by using
 the <kbd>`Ctrl`</kbd> + <kbd>`Enter`</kbd> shortcut (on Macs, <kbd>`Cmd`</kbd> +
 <kbd>`Enter`</kbd> will work, too). The command on the current line in the
 script (indicated by the cursor) or all of the commands in the currently
@@ -294,6 +308,9 @@ console.  RStudio provides the <kbd>`Ctrl`</kbd> + <kbd>`1`</kbd> and
 <kbd>`Ctrl`</kbd> + <kbd>`2`</kbd> shortcuts allow you to jump between the
 script and the console panes.
 
-In addition to shortcuts RStudio also provides autocompletion. If you begin typing a command or the name of a variable or (under certain conditions) even filenames you have on your latop and thenb hit the <kbd>`Tab`</kbd> key, it will make suggestions and relieve you from typing. More on code completion in RStudio is here: https://support.rstudio.com/hc/en-us/articles/205273297-Code-Completion 
+**Autocompletion:** In addition to shortcuts RStudio also provides autocompletion. If you begin typing a command or the name of a variable or (under certain conditions) even filenames you have on your latop and thenb hit the <kbd>`Tab`</kbd> key, it will make suggestions and relieve you from typing. More on code completion in RStudio is here: https://support.rstudio.com/hc/en-us/articles/205273297-Code-Completion 
 
-All in all, RStudio is designed to make your coding easier and less error-prone.
+
+> <h3>Challenge</h3>
+> - Determine what your current working directory is.
+> - Where in relationship to your current working directory is the "data" folder you just created for your project?
