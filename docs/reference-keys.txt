@@ -4,6 +4,7 @@ fig:set-working-dir
 fig:use-help
 fig:install-packages
 fig:data-frame
+fig:data-frame-g
 backgroud
 what-is-r-what-is-rstudio
 why-learn-r
@@ -33,9 +34,9 @@ resources-on-getting-help
 vectors-and-data-types
 subsetting-vectors
 conditional-subsetting
-missing-data
 vectorization
-tip-operations-on-vectors-of-unequal-length
+operations-on-vectors-of-unequal-length
+missing-data
 common-r-data-structures
 matrix
 list
@@ -53,3 +54,9 @@ categorical-data-factors
 converting-factors
 renaming-factors
 date-formats
+data-gapminder
+importing-tabular-data-1
+inspecting-data-frames-1
+indexing-and-subsetting-data-frames-1
+conditional-subsetting-2
+adding-and-removing-rows-and-columns-1

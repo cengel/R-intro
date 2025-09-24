@@ -125,7 +125,7 @@
 
 \title{Introduction to R}
 \author{Claudia A Engel}
-\date{Last updated: September 23, 2025}
+\date{Last updated: September 24, 2025}
 
 \begin{document}
 \maketitle
@@ -612,10 +612,6 @@ Challenge
 \end{quote}
 
 \chapter{Getting Started with R}\label{gettingstarted}
-
-\begin{quote}
-===\textgreater{} ADD VECTORIZATION
-\end{quote}
 
 \begin{quote}
 Learning Objectives
@@ -1555,6 +1551,133 @@ Make sure your \texttt{area\_hectares} vector contains the following values: 30,
 \end{itemize}
 \end{quote}
 
+\section{Vectorization}\label{vectorization}
+
+Most of R's functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}
+\NormalTok{x }\SpecialCharTok{*} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 2 4 6 8
+\end{verbatim}
+
+The multiplication happened to each element of the vector.
+
+We can also add two vectors together:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{6}\SpecialCharTok{:}\DecValTok{9}
+\NormalTok{x }\SpecialCharTok{+}\NormalTok{ y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1]  7  9 11 13
+\end{verbatim}
+
+Each element of \texttt{x} was added to its corresponding element of \texttt{y}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{4}
+    \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}
+\NormalTok{y}\SpecialCharTok{:}  \DecValTok{6}  \DecValTok{7}  \DecValTok{8}  \DecValTok{9}
+\SpecialCharTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+    \DecValTok{7}  \DecValTok{9} \DecValTok{11} \DecValTok{13}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+Challenge
+
+Convert the \texttt{area\_hectars} vector into acres
+\end{quote}
+
+Comparison operators, logical operators, and many functions are also
+vectorized:
+
+\textbf{Comparison operators}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\SpecialCharTok{\textgreater{}} \DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] FALSE FALSE  TRUE  TRUE
+\end{verbatim}
+
+\textbf{Logical operators}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\textgreater{}} \DecValTok{3}  \CommentTok{\# or, for clarity, a \textless{}{-} (x \textgreater{} 3)}
+\NormalTok{a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] FALSE FALSE FALSE  TRUE
+\end{verbatim}
+
+Most functions also operate element-wise on vectors:
+
+\textbf{Functions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}
+\FunctionTok{log}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 0.0000000 0.6931472 1.0986123 1.3862944
+\end{verbatim}
+
+\subsection{Operations on vectors of unequal length}\label{operations-on-vectors-of-unequal-length}
+
+Operations can also be performed on vectors of unequal length, through
+a process known as \emph{recycling}. This process automatically repeats the smaller vector
+until it matches the length of the larger vector. R will provide a warning
+(only!) if the larger vector is not a multiple of the smaller vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+\NormalTok{x }\SpecialCharTok{+}\NormalTok{ y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Warning in x + y: longer object length is not a multiple of shorter object
+#> length
+\end{verbatim}
+
+\begin{verbatim}
+#> [1] 2 4 6 5 7 9 8
+\end{verbatim}
+
+Vector \texttt{x} was recycled to match the length of vector \texttt{y}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{1}
+    \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}
+\NormalTok{y}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{4}  \DecValTok{5}  \DecValTok{6}  \DecValTok{7}
+\SpecialCharTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+    \DecValTok{2}  \DecValTok{4}  \DecValTok{6}  \DecValTok{5}  \DecValTok{7}  \DecValTok{9}  \DecValTok{8}
+\end{Highlighting}
+\end{Shaded}
+
 \section{Missing data}\label{missing-data}
 
 As R was designed to analyze datasets, it includes the concept of missing data
@@ -1692,109 +1815,6 @@ Challenge
   How many of the populations are of size 15 and over?
 \end{enumerate}
 \end{quote}
-
-\section{Vectorization}\label{vectorization}
-
-Most of R's functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}
-\NormalTok{x }\SpecialCharTok{*} \DecValTok{2}
-\end{Highlighting}
-\end{Shaded}
-
-The multiplication happened to each element of the vector.
-
-We can also add two vectors together:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{6}\SpecialCharTok{:}\DecValTok{9}
-\NormalTok{x }\SpecialCharTok{+}\NormalTok{ y}
-\end{Highlighting}
-\end{Shaded}
-
-Each element of \texttt{x} was added to its corresponding element of \texttt{y}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{4}
-    \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}
-\NormalTok{y}\SpecialCharTok{:}  \DecValTok{6}  \DecValTok{7}  \DecValTok{8}  \DecValTok{9}
-\SpecialCharTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-    \DecValTok{7}  \DecValTok{9} \DecValTok{11} \DecValTok{13}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{quote}
-Challenge
-
-Convert the \texttt{area\_hectars} vector into acres
-\end{quote}
-
-Comparison operators, logical operators, and many functions are also
-vectorized:
-
-\textbf{Comparison operators}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\SpecialCharTok{\textgreater{}} \DecValTok{2}
-\end{Highlighting}
-\end{Shaded}
-
-\textbf{Logical operators}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\textgreater{}} \DecValTok{3}  \CommentTok{\# or, for clarity, a \textless{}{-} (x \textgreater{} 3)}
-\NormalTok{a}
-\end{Highlighting}
-\end{Shaded}
-
-Most functions also operate element-wise on vectors:
-
-\textbf{Functions}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}
-\FunctionTok{log}\NormalTok{(x)}
-\end{Highlighting}
-\end{Shaded}
-
-\section{Tip: Operations on vectors of unequal length}\label{tip-operations-on-vectors-of-unequal-length}
-
-Operations can also be performed on vectors of unequal length, through
-a process known as \emph{recycling}. This process automatically repeats the smaller vector
-until it matches the length of the larger vector. R will provide a warning
-(only!) if the larger vector is not a multiple of the smaller vector.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{)}
-\NormalTok{x }\SpecialCharTok{+}\NormalTok{ y}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-#> Warning in x + y: longer object length is not a multiple of shorter object
-#> length
-\end{verbatim}
-
-Vector \texttt{x} was recycled to match the length of vector \texttt{y}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{x}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{1}
-    \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}  \SpecialCharTok{+}
-\NormalTok{y}\SpecialCharTok{:}  \DecValTok{1}  \DecValTok{2}  \DecValTok{3}  \DecValTok{4}  \DecValTok{5}  \DecValTok{6}  \DecValTok{7}
-\SpecialCharTok{{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-    \DecValTok{2}  \DecValTok{4}  \DecValTok{6}  \DecValTok{5}  \DecValTok{7}  \DecValTok{9}  \DecValTok{8}
-\end{Highlighting}
-\end{Shaded}
 
 \section{Common R Data Structures}\label{common-r-data-structures}
 
@@ -2777,6 +2797,485 @@ Challenge
 \item
   Coerce \texttt{age} to a factor and use the \texttt{plot} function to check your results. What do you find?
 \end{itemize}
+\end{quote}
+
+\chapter{Working with tabular data in R (gapminder)}\label{data-gapminder}
+
+\begin{quote}
+Learning Objectives
+
+\begin{itemize}
+\tightlist
+\item
+  Load external data from a .csv file into a data frame in R with \texttt{read\_csv()}
+\item
+  Find basic properties of a data frames including size, class or type of the columns, names of rows and columns by using \texttt{str()}, \texttt{glimpse()}, \texttt{nrow()}, \texttt{ncol()}, \texttt{dim()}, \texttt{length()} , \texttt{colnames()}, \texttt{rownames()}
+\item
+  Use \texttt{head()} and \texttt{tail()} to inspect rows of a data frame.
+\item
+  Generate summary statistics for a data frame
+\item
+  Use indexing to select rows and columns
+\item
+  Use logical conditions to select rows and columns
+\item
+  Add columns and rows to a data frame
+\item
+  Use \texttt{df\$new\_col\ \textless{}-\ new\_col} to add a new column to a data frame.
+\item
+  Use \texttt{cbind()} to add a new column to a data frame.
+\item
+  Use \texttt{rbind()} to add a new row to a data frame.
+\item
+  Use \texttt{na.omit()} to remove rows from a data frame with \texttt{NA} values.
+\end{itemize}
+\end{quote}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Data frames are the de facto data structure for tabular data in R, and what we use for data processing, statistics, and plotting.
+
+A data frame is the representation of data in the format of a table where the columns are vectors that all have the same length. Data frames are analogous to the more familiar spreadsheet in programs such as Excel, with one key difference. Because columns are vectors, each column must contain a single type of data (e.g., characters, integers, factors). For example, here is a figure depicting a data frame comprising a numeric, a character, and a logical vector.
+
+\begin{figure}
+\includegraphics[width=0.8\linewidth]{img/data-frame} \caption{Structure of a data frame}\label{fig:data-frame-g}
+\end{figure}
+
+As we have seen above, data frames can be created by hand, but most commonly they are generated by the functions like \texttt{read.csv()}, \texttt{read\_csv()} or \texttt{read\_table()} and others. These functions essentially import the tables or spreadsheets from your hard drive (or the web). We will now demonstrate how to import tabular data using \texttt{read\_csv()}.
+
+\section{Importing tabular data}\label{importing-tabular-data-1}
+
+You are going to load the data in R's memory using the function \texttt{read\_csv()} from the \texttt{readr} package, which is part of the \texttt{tidyverse}. You can learn more about the tidyverse collection of packages (here){[}\url{https://www.tidyverse.org/}{]}. \texttt{readr} is installed as part as the \texttt{tidyverse} installation. When you load the \texttt{tidyverse} (\texttt{library(tidyverse)}), the core packages (the packages used in most data analyses) are loaded, including \texttt{readr.}
+
+So lets make sure you have the \texttt{tidyverse} packages are installed and loaded.
+
+If you haven't done so already run the installation of \texttt{tidyverse} like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{ , }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# this is only necessary once}
+\end{Highlighting}
+\end{Shaded}
+
+Then load \texttt{tidyverse} into memory like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse) }\CommentTok{\# do this whenever you need to access functions from the tidyverse packages }
+\end{Highlighting}
+\end{Shaded}
+
+You may have noticed that when you loaded the tidyverse package that you received the following message:
+
+\texttt{──\ Conflicts\ ───────────────────────────────────────\ tidyverse\_conflicts()\ ──}\strut \\
+\texttt{✖\ dplyr::filter()\ masks\ stats::filter()}\strut \\
+\texttt{✖\ dplyr::lag()\ \ \ \ masks\ stats::lag()}\strut \\
+\texttt{ℹ\ Use\ the\ conflicted\ package\ to\ force\ all\ conflicts\ to\ become\ errors}
+
+This presents a good opportunity to talk about conflicts. Certain packages we load can end up introducing function names that are already in use by pre-loaded R packages. For instance, when we load the \texttt{tidyverse} package below, we will introduce two conflicting functions: \texttt{filter()} and \texttt{lag()}. This happens because \texttt{filter} and \texttt{lag} are already functions used by the \texttt{stats} package (already pre-loaded in R). What will happen now is that if we, for example, call the \texttt{filter()} function, R will use the \texttt{dplyr::filter()} version and not the \texttt{stats::filter()} one. This happens because, if conflicted, \textbf{by default R uses the function from the most recently loaded package}. Conflicted functions may cause you some trouble in the future, so it is important that we are aware of them so that we can properly handle them, if we want.
+
+To do so, we can use the following functions from the conflicted package:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{conflicted::conflict\_scout()}: Shows us any conflicted functions.
+\item
+  \texttt{conflict\_prefer("function",\ "package\_prefered")}: Allows us to choose the default function we want from now on.
+\end{itemize}
+
+It is also important to know that we can, at any time, just call the function directly from the package we want, such as \texttt{stats::filter()}.
+
+Ok. With that out of the way you are now ready to load the data.
+
+We will use a dataset from \url{gapminder.org} containing population information for many countries through time. This is file in CSV format. {[}What is a CSV file?{]}(\url{https://support.bigcommerce.c}
+
+There are several options how you can access this file:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Download the gapminder data from \href{https://swcarpentry.github.io/r-novice-gapminder/data/gapminder_data.csv}{this link to a csv file}.
+\end{enumerate}
+
+Download the file (right mouse click on the link above -\textgreater{} ``Save link as'' / ``Save file as'', or click on the link and after the page loads, press Ctrl+S or choose File -\textgreater{} ``Save page as'')
+Make sure it's saved under the name \texttt{gapminder\_data.csv}
+Save or move the file in the \texttt{data/} folder within your project.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Files can also be downloaded directly from the Internet into a local folder of your choice onto your computer using the \texttt{download.file} function in R. The read\_csv function can then be executed to read the downloaded file from the download location, for example:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{download.file}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/swcarpentry/r{-}novice{-}gapminder/main/episodes/data/gapminder\_data.csv"}\NormalTok{, }\AttributeTok{destfile =} \StringTok{"data/gapminder\_data.csv"}\NormalTok{)}
+\NormalTok{gapminder }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/gapminder\_data.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in \texttt{read\_csv}. One should note that in doing this \textbf{no local copy} of the csv file is first saved onto your computer. For example:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/swcarpentry/r{-}novice{-}gapminder/main/episodes/data/gapminder\_data.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+If you were to type in the code above, it is likely that the \texttt{read.csv()} (note the dot!) function appears in the automatically populated list of functions. This function is different from the \texttt{read\_csv()} (note the underscore!) function. \texttt{read.csv()} (with dot) is included in the ``base'' R packages that come pre-installed with R. Overall, \texttt{read.csv()} behaves similar to \texttt{read\_csv()}, with a few notable differences. First, \texttt{read.csv()} coerces column names with spaces and/or special characters to different names (e.g.~interview date becomes interview.date). Second, \texttt{read.csv()} stores data as a \textbf{data.frame}, where \texttt{read\_csv()} stores data as a \textbf{tibble}. We prefer tibbles because they have nice printing properties among other desirable qualities. Read more about tibbles \href{https://tibble.tidyverse.org/}{here.}
+
+The second statement in the code above creates a data frame but doesn't output any data because, as you might recall, assignments (\texttt{\textless{}-}) don't display anything. (Note, however, that \texttt{read\_csv} may show informational text about the data frame that is created.)
+
+So let's check out the data! We can type the name of the object \texttt{gapminder}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> # A tibble: 1,704 x 6
+#>    country      year      pop continent lifeExp gdpPercap
+#>    <chr>       <dbl>    <dbl> <chr>       <dbl>     <dbl>
+#>  1 Afghanistan  1952  8425333 Asia         28.8      779.
+#>  2 Afghanistan  1957  9240934 Asia         30.3      821.
+#>  3 Afghanistan  1962 10267083 Asia         32.0      853.
+#>  4 Afghanistan  1967 11537966 Asia         34.0      836.
+#>  5 Afghanistan  1972 13079460 Asia         36.1      740.
+#>  6 Afghanistan  1977 14880372 Asia         38.4      786.
+#>  7 Afghanistan  1982 12881816 Asia         39.9      978.
+#>  8 Afghanistan  1987 13867957 Asia         40.8      852.
+#>  9 Afghanistan  1992 16317921 Asia         41.7      649.
+#> 10 Afghanistan  1997 22227415 Asia         41.8      635.
+#> # i 1,694 more rows
+\end{verbatim}
+
+\texttt{read\_csv()} assumes that fields are delimited by commas. For other delimiters (like semicolon or tab) check out the help: \texttt{?read\_csv}
+
+Note that \texttt{read\_csv()} loads the data as a so called ``tibble''. A tibble is an extended form of R data frames (as an object of multiple classes \texttt{tbl\_df}, \texttt{tbl}, and \texttt{data.frame}). This may sound confusing, but it is really not anything you typically need to deal with when working the data. In fact, it makes it a little more convenient.
+
+As you may recall, a data frame in R is a special case of a list, and a representation of data where the columns are vectors that all have the same length. Because the columns are vectors, they all contain the same type of data (e.g., characters, integers, factors, etc.).
+
+In this tibble you can see the type of data included in each column listed in an abbreviated fashion right below the column names. For instance, the \texttt{country} column is is of type character \texttt{\textless{}chr\textgreater{}}, the \texttt{year} is in \texttt{\textless{}dbl\textgreater{}} is are floating point number (abbreviated \texttt{\textless{}dbl\textgreater{}} for the word `double').
+
+\section{Inspecting data frames}\label{inspecting-data-frames-1}
+
+When calling a \texttt{tbl\_df}object (like \texttt{gapminder} here), there is already a lot of information about our data frame being displayed such as the number of rows, the number of columns, the names of the columns, and as we just saw the class of data stored in each column. However, there are additional functions to extract this information from data frames. Here is a non-exhaustive list of some of these functions. Let's try them out!
+
+We already saw how the functions \texttt{head()} and \texttt{str()} can be useful to check the
+content and the structure of a data frame. Here is a non-exhaustive list of
+functions to get a sense of the content/structure of the data. Let's try them out!
+
+(Note: most of these functions are ``generic'', they can be used on other types of
+objects besides data frames or tibbles.)
+
+\begin{itemize}
+\tightlist
+\item
+  Summary:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{str(gapminder)} - structure of the object and information about the class, length and
+    content of each column
+  \item
+    \texttt{summary(gapminder)} - summary statistics for each column
+  \item
+    \texttt{glimpse(gapminder)} - returns the number of columns and rows of the tibble, the names and class of each column, and previews as many values will fit on the screen. Unlike the other inspecting functions listed above, \texttt{glimpse()} is not a `base R' function so you need to have the \texttt{dplyr} or \texttt{tibble} packages loaded to be able to execute it.
+  \end{itemize}
+\item
+  Size:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{dim(gapminder)} - returns a vector with the number of rows in the first element,
+    and the number of columns as the second element (the \textbf{dim}ensions of
+    the object)
+  \item
+    \texttt{nrow(gapminder)} - returns the number of rows
+  \item
+    \texttt{ncol(gapminder)} - returns the number of columns
+  \item
+    \texttt{length(gapminder)} - returns number of columns
+  \end{itemize}
+\item
+  Content:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{head(gapminder)} - shows the first 6 rows
+  \item
+    \texttt{tail(gapminder)} - shows the last 6 rows
+  \end{itemize}
+\item
+  Names:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{names(gapminder)} - returns the column names (synonym of \texttt{colnames()} for \texttt{data.frame}
+    objects)
+  \item
+    \texttt{rownames(gapminder)} - returns the row names
+  \end{itemize}
+\end{itemize}
+
+\begin{quote}
+Challenge
+
+Based on the output of \texttt{str(gapminder)}, can you answer the following questions?
+
+\begin{itemize}
+\tightlist
+\item
+  What is the class of the object \texttt{gapminder}?
+\item
+  How many rows and how many columns are in this object?
+\item
+  How many counties have been recorded in this dataset?
+\end{itemize}
+\end{quote}
+
+\section{Indexing and subsetting data frames}\label{indexing-and-subsetting-data-frames-1}
+
+Our gapminder data frame has rows and columns (it has 2 dimensions), if we want to
+extract some specific data from it, we need to specify the ``coordinates'' (i.e., indices) we want from it. Row numbers come first, followed by column numbers.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# first element in the first column of the tibble}
+\NormalTok{gapminder[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{]}
+\DocumentationTok{\#\# first element in the 5th column of the tibble }
+\NormalTok{gapminder[}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{]}
+\DocumentationTok{\#\# first column of the tibble}
+\NormalTok{gapminder[}\DecValTok{1}\NormalTok{]}
+\DocumentationTok{\#\# first column of the tibble (as a vector)}
+\NormalTok{gapminder[[}\DecValTok{1}\NormalTok{]]}
+
+\DocumentationTok{\#\# the 3rd row of the tibble}
+\NormalTok{gapminder[}\DecValTok{3}\NormalTok{, ]}
+\DocumentationTok{\#\# first three elements in the 6th column of the tibble}
+\NormalTok{gapminder[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{]}
+\DocumentationTok{\#\# equivalent to head(gapminder) }
+\NormalTok{gapminder[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, ]}
+
+\DocumentationTok{\#\# Excludig with \textquotesingle{}{-}\textquotesingle{}}
+\DocumentationTok{\#\# The whole tibble, except the first column}
+\NormalTok{gapminder[, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]          }
+\DocumentationTok{\#\# equivalent to head(gapminder)  }
+\NormalTok{gapminder[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{6}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(gapminder)),]}
+\end{Highlighting}
+\end{Shaded}
+
+Subsetting a \texttt{tibble} with \texttt{{[}} always results in a tibble. However, note that different ways of specifying these coordinates lead to results with different classes. Below are some example for \texttt{data.frame} objects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder\_df }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(gapminder)}
+\NormalTok{gapminder\_df[}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{]   }\CommentTok{\# first element in the first column of the data frame (as a vector)}
+\NormalTok{gapminder\_df[, }\DecValTok{1}\NormalTok{]    }\CommentTok{\# first column in the data frame (as a vector)}
+\NormalTok{gapminder\_df[}\DecValTok{1}\NormalTok{]      }\CommentTok{\# first column in the data frame (as a data.frame)}
+\end{Highlighting}
+\end{Shaded}
+
+An alternative to subsetting \texttt{tibbles} (and data frames) is to calling their column names directly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder[}\StringTok{"country"}\NormalTok{]       }\CommentTok{\# Result is a tibble}
+\NormalTok{gapminder[, }\StringTok{"country"}\NormalTok{]     }\CommentTok{\# Result is a tibble}
+\NormalTok{gapminder[[}\StringTok{"country"}\NormalTok{]]     }\CommentTok{\# Result is a vector}
+\NormalTok{gapminder}\SpecialCharTok{$}\NormalTok{country          }\CommentTok{\# Result is a vector}
+\end{Highlighting}
+\end{Shaded}
+
+RStudio knows about the columns in your data frame, so you can take advantage of the autocompletion feature to get the full and correct column name.
+
+\begin{quote}
+Challenge
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Create a \texttt{tibble} (\texttt{gapminder\_200}) containing only the observations from
+  row 200 of the \texttt{gapminder} dataset.
+\item
+  Notice how \texttt{nrow()} gave you the number of rows in a \texttt{tibble}?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Use that number to pull out just that last row in the data frame.
+  \item
+    Compare that with what you see as the last row using \texttt{tail()} to make
+    sure it's meeting expectations.
+  \item
+    Pull out that last row using \texttt{nrow()} instead of the row number.
+  \item
+    Create a new data frame object (\texttt{gapminder\_last}) from that last row.
+  \end{itemize}
+\item
+  Use \texttt{nrow()} to extract the row that is in the middle of the data
+  frame. Store the content of this row in an object named \texttt{gapminder\_middle}.
+\item
+  Combine \texttt{nrow()} with the \texttt{-} notation above to reproduce the behavior of
+  \texttt{head(gapminder)} keeping just the first through 6th rows of the gapminder
+  dataset.
+\end{enumerate}
+\end{quote}
+
+\section{Conditional subsetting}\label{conditional-subsetting-2}
+
+A very common need when working with tables is the need to extract a subset of a data frame based on certain conditions, depending on the actual content of the table. For example, we may want to look only at the data from Oceania. In this case we can use logical conditions, exactly like we did above with vector subsetting. In base R this can be done like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# the condition:}
+\CommentTok{\# returns a logical vector of the length of the column}
+\NormalTok{gapminder}\SpecialCharTok{$}\NormalTok{continent }\SpecialCharTok{==} \StringTok{"Oceania"} 
+
+\CommentTok{\# use this vector to extract rows and all columns}
+\CommentTok{\# note the comma: we want *all* columns}
+\NormalTok{gapminder[gapminder}\SpecialCharTok{$}\NormalTok{continent }\SpecialCharTok{==} \StringTok{"Oceania"}\NormalTok{, ] }
+
+\CommentTok{\# assign extract to a new data frame}
+\NormalTok{gapminder\_oceania }\OtherTok{\textless{}{-}}\NormalTok{ gapminder[gapminder}\SpecialCharTok{$}\NormalTok{continent }\SpecialCharTok{==} \StringTok{"Oceania"}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+This is also a possibility (but slower):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder\_oceania }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(gapminder, continent }\SpecialCharTok{==} \StringTok{"Oceania"}\NormalTok{)}
+\FunctionTok{nrow}\NormalTok{(gapminder\_oceania) }\CommentTok{\# 24 records for Oceania}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> [1] 24
+\end{verbatim}
+
+\begin{quote}
+Challenge
+
+From the \texttt{gapminder} data create a new table named \texttt{gap\_seAsia\_1990} with
+the following countries:\\
+``Myanmar'',``Thailand'',``Cambodia'',``Vietnam'',``Laos'' and from the year 1990 only.
+\end{quote}
+
+These commands are from the R base package. We will discuss a different (and more readable!) method of subsetting using functions from the \texttt{tidyverse} package later on.
+
+\section{Adding and removing rows and columns}\label{adding-and-removing-rows-and-columns-1}
+
+There are three major ways to add columns to a table.
+* Add a new column with new values.
+* Add a new column with values derived from one or more existing columns in the table.
+* Combine (or `join') two tables based on a common unique record identifier.
+
+We will start with the first one: add a new column with new values.
+
+To add a new column to the data frame we can use the \texttt{cbind()} function There also is a \texttt{bind\_cols()} function from \texttt{dplyr} package (part of the \texttt{tidyverse}). An important difference with \texttt{bind\_cols()} is that it displays an error message when you try to combine with vector that has fewer or more elements than the number of rows in the table. \texttt{cbind()} on the other hand, silently repeats values or rows, so you might introduce errors and be unaware of it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{id\_column }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(gapminder) }\CommentTok{\# create a unique ID number for each row}
+\NormalTok{gapminder\_with\_id }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(gapminder, id\_column) }
+\FunctionTok{glimpse}\NormalTok{(gapminder\_with\_id)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> Rows: 1,704
+#> Columns: 7
+#> $ country   <chr> "Afghanistan", "Afghanistan", "Afghanistan", "Afghanistan", ~
+#> $ year      <dbl> 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997, ~
+#> $ pop       <dbl> 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, 12~
+#> $ continent <chr> "Asia", "Asia", "Asia", "Asia", "Asia", "Asia", "Asia", "Asi~
+#> $ lifeExp   <dbl> 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40.8~
+#> $ gdpPercap <dbl> 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134, ~
+#> $ id_column <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1~
+\end{verbatim}
+
+Alternatively, we can also add a new column adding the new column name after the \texttt{\$} sign then assigning the value, like below. \textbf{Note that this will change the original data frame, which you may not always want to do.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder}\SpecialCharTok{$}\NormalTok{row\_numbers }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(gapminder))}
+\NormalTok{gapminder}\SpecialCharTok{$}\NormalTok{all\_false }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}  \CommentTok{\# what do you think will happen here?}
+\end{Highlighting}
+\end{Shaded}
+
+There is an equivalent function to \texttt{cbind()}, \texttt{rbind()} to add a new row to a data frame. I use this far less frequently than the column equivalent. The one thing to keep in mind is that the row to be added to the data frame needs to match the order and type of columns in the data frame. Remember that R's way to store multiple different data types in one object is a \texttt{list}. So if we wanted to add a new row to \texttt{gapminder} we would say:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_row }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{country=}\StringTok{"Greece"}\NormalTok{, }\AttributeTok{year=}\DecValTok{2017}\NormalTok{,}
+                \AttributeTok{pop=}\DecValTok{12345}\NormalTok{, }\AttributeTok{continent =} \StringTok{"Europe"}\NormalTok{, }\AttributeTok{lifeExp =} \FloatTok{30.3}\NormalTok{,}
+                \AttributeTok{gdpPercap =} \DecValTok{1000}\NormalTok{)}
+
+\NormalTok{gapminder\_withnewrow }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(gapminder, new\_row)}
+\FunctionTok{tail}\NormalTok{(gapminder\_withnewrow)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#> # A tibble: 6 x 6
+#>   country   year      pop continent lifeExp gdpPercap
+#>   <chr>    <dbl>    <dbl> <chr>       <dbl>     <dbl>
+#> 1 Zimbabwe  1987  9216418 Africa       62.4      706.
+#> 2 Zimbabwe  1992 10704340 Africa       60.4      693.
+#> 3 Zimbabwe  1997 11404948 Africa       46.8      792.
+#> 4 Zimbabwe  2002 11926563 Africa       40.0      672.
+#> 5 Zimbabwe  2007 12311143 Africa       43.5      470.
+#> 6 Greece    2017    12345 Europe       30.3     1000
+\end{verbatim}
+
+Equivalently there is a \texttt{bind\_rows} function available in \texttt{tidyverse}. One of the main reasons for using \texttt{bind\_rows} over \texttt{rbind} is to combine two data frames having different number of columns. \texttt{rbind} throws an error in such a case whereas \texttt{bind\_rows} assigns ``NA'' to those rows of columns missing in one of the data frames where the value is not provided by the data frames. \href{https://stackoverflow.com/a/59482527}{Here is a systematic review of differences between the two.}
+
+There is also \texttt{add\_row} fro the \texttt{tibble} package which allows you to specify where to insert the row. You can find out more with \texttt{?add\_row}.
+
+A convenient function to know about is \texttt{na.omit()}. It will remove all rows from a data frame that have at least one column with \texttt{NA} values. The function \texttt{drop\_na()} from \texttt{tidyverse} works similarly and lets you name specific columns with NA.
+
+\begin{quote}
+Challenge
+
+\begin{itemize}
+\tightlist
+\item
+  Given the following data frame:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfr }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{col\_1 =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{), }
+                  \AttributeTok{col\_2 =} \FunctionTok{c}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\StringTok{"b"}\NormalTok{), }
+                  \AttributeTok{col\_3 =} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+What would you expect the following commands to return?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{nrow}\NormalTok{(dfr)}
+\FunctionTok{nrow}\NormalTok{(}\FunctionTok{na.omit}\NormalTok{(dfr))}
+\end{Highlighting}
+\end{Shaded}
 \end{quote}
 
 \bibliography{book.bib,packages.bib}

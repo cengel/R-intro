@@ -4,9 +4,6 @@ knitr::opts_chunk$set(results='hide', comment = "#>", purl = FALSE)
 
 # Getting Started with R {#gettingstarted}
 
-> ===> ADD VECTORIZATION
-
-
 > Learning Objectives
 >
 > * Create R objects and and assign values to them.
@@ -659,6 +656,87 @@ area_hectares[area_hectares > 40 & area_hectares < 90]
 -->
 
 
+## Vectorization
+
+Most of R’s functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+
+```{r, results='show'}
+x <- 1:4
+x * 2
+```
+
+The multiplication happened to each element of the vector.
+
+We can also add two vectors together:
+```{r, results='show'}
+y <- 6:9
+x + y
+```
+
+Each element of `x` was added to its corresponding element of `y`:
+
+```{r, eval=FALSE}
+x:  1  2  3  4
+    +  +  +  +
+y:  6  7  8  9
+---------------
+    7  9 11 13
+```
+
+
+> <h3>Challenge</h3>
+> Convert the `area_hectars` vector into acres
+
+Comparison operators, logical operators, and many functions are also
+vectorized:
+
+**Comparison operators**
+
+```{r, results='show'}
+x > 2
+```
+
+**Logical operators**
+
+```{r, results='show'}
+a <- x > 3  # or, for clarity, a <- (x > 3)
+a
+```
+
+Most functions also operate element-wise on vectors:
+
+**Functions**
+
+```{r, results='show'}
+x <- 1:4
+log(x)
+```
+
+### Operations on vectors of unequal length
+
+Operations can also be performed on vectors of unequal length, through
+a process known as *recycling*. This process automatically repeats the smaller vector
+until it matches the length of the larger vector. R will provide a warning
+(only!) if the larger vector is not a multiple of the smaller vector.
+
+```{r, results='show'}
+x <- c(1, 2, 3)
+y <- c(1, 2, 3, 4, 5, 6, 7)
+x + y
+```
+
+Vector `x` was recycled to match the length of vector `y`
+
+```{r, eval=FALSE}
+x:  1  2  3  1  2  3  1
+    +  +  +  +  +  +  +
+y:  1  2  3  4  5  6  7
+-----------------------
+    2  4  6  5  7  9  8
+```
+
+
+
 ## Missing data
 
 As R was designed to analyze datasets, it includes the concept of missing data
@@ -724,87 +802,6 @@ age[complete.cases(age)]
 ## 2. Use the function `sum()` to calculate the total of the `population`.
 ## sum(pop > 15, na.rm = T)
 ```
-
-
-## Vectorization
-
-Most of R’s functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
-
-```{r}
-x <- 1:4
-x * 2
-```
-
-The multiplication happened to each element of the vector.
-
-We can also add two vectors together:
-```{r}
-y <- 6:9
-x + y
-```
-
-Each element of `x` was added to its corresponding element of `y`:
-
-```{r, eval=FALSE}
-x:  1  2  3  4
-    +  +  +  +
-y:  6  7  8  9
----------------
-    7  9 11 13
-```
-
-
-> <h3>Challenge</h3>
-> Convert the `area_hectars` vector into acres
-
-Comparison operators, logical operators, and many functions are also
-vectorized:
-
-**Comparison operators**
-
-```{r}
-x > 2
-```
-
-**Logical operators**
-
-```{r}
-a <- x > 3  # or, for clarity, a <- (x > 3)
-a
-```
-
-Most functions also operate element-wise on vectors:
-
-**Functions**
-
-```{r}
-x <- 1:4
-log(x)
-```
-
-## Tip: Operations on vectors of unequal length
-
-Operations can also be performed on vectors of unequal length, through
-a process known as *recycling*. This process automatically repeats the smaller vector
-until it matches the length of the larger vector. R will provide a warning
-(only!) if the larger vector is not a multiple of the smaller vector.
-
-```{r}
-x <- c(1, 2, 3)
-y <- c(1, 2, 3, 4, 5, 6, 7)
-x + y
-```
-
-Vector `x` was recycled to match the length of vector `y`
-
-```{r, eval=FALSE}
-x:  1  2  3  1  2  3  1
-    +  +  +  +  +  +  +
-y:  1  2  3  4  5  6  7
------------------------
-    2  4  6  5  7  9  8
-```
-
 
 
 ## Common R Data Structures
