@@ -289,11 +289,11 @@ Other ethical concerns have also been raised, such as reports that workers were 
 
 > <h3>Challenge</h3>
 > 
-> Investigate the help of the `mean()` function
-> - what does the function do?
-> - how do you use it?
-> - what are the arguments? which ones are required, which ones are optional?
-> - what does the function return?
+> Investigate the help of the `mean()` function    
+> - what does the function do?    
+> - how do you use it?    
+> - what are the arguments? which ones are required, which ones are optional?    
+> - what does the function return?    
 > - try to run the code example provided
 
 
@@ -581,19 +581,18 @@ Typically, however, these logical vectors are not typed out by hand like we just
 
 We use the following operators for this:
 
-* relational operators - return logical values indicating where a relation is satisfied. The most commonly used logical operators for data analysis are as follows:
-
+* **relational operators** - return logical values indicating where a relation is satisfied. The most commonly used logical operators for data analysis are as follows:   
 `==` means "equal to"^[The double equal sign `==` is a test for numerical equality between the left and right hand sides, and should not be confused with the single `=` sign, which performs variable assignment (similar
-to `<-`).]     
+to `<-`).]         
 `!=` means "not equal to"       
 `>` or `<` means "greater than" or "less than"       
 `>=` or `<=` means "greater than or equal to" or "less than or equal to"
 
-* logical operators – join subset criteria together     
+* **logical operators** – join subset criteria together     
 `&` means “and” – where two criterium must both be satisfied     
 `|` means “or” – where at least one criterium must be satisfied
 
-* the "inclusion operator" `%in%` – allows you to test if any of the elements of a search vector (on the left hand side) are found in the target vector (on the right hand side).
+* **the "inclusion operator"** `%in%` – allows you to test if any of the elements of a search vector (on the left hand side) are found in the target vector (on the right hand side).
 
 For example, we can search for certain strings in a vector. One could use the
 "or" operator `|` to test for equality to multiple values like so:
@@ -602,13 +601,13 @@ For example, we can search for certain strings in a vector. One could use the
 animals[animals == "frog" | animals == "rat"] 
 ```
 
-But this can quickly become tedious. The function `%in%` allows you to test if any of the elements of a search vector are found:
+But this can quickly become tedious if you have more strings that you want to search for. The function `%in%` allows you to test if any of the elements of a search vector are found:
 ```{r, results='show', purl=FALSE}
-animals %in% c("frog", "rat", "cat") # this creates the logical vector
-animals[animals %in% c("frog", "rat", "cat")] # we use it here in the [ ] to subset
+animals %in% c("dog", "rat") # this creates the logical vector
+animals[animals %in% c("dog", "rat")] # we use it here in the [ ] to subset
 
 # The same, but here is how I would typically do it:
-animals_to_find <- c("frog", "rat", "cat") # create a vector with the values you are looking for
+animals_to_find <- c("dog", "rat") # create a vector with the values you are looking for
 animals[animals %in% animals_to_find] # apply it in the condition here
 ```
 
@@ -625,26 +624,33 @@ You can combine multiple tests using `&` (both conditions are true, AND) or `|`
 (at least one of the conditions is true, OR):
 
 ```{r, results='show', purl=FALSE}
-area_hectares[area_hectares < 30 | area_hectares > 50]
-area_hectares[area_hectares > 40 & area_hectares < 90]
+area_hectares[area_hectares > 50 & area_hectares < 90]
 ```
 
 
 > <h3>Challenge</h3>
 >
-> Make sure your `area_hectares` vector contains the following values: 30, 21, 34, 39, 54, 55, 90, if not recreate it.
-> * subset `area_hectares` to only the values equal or less than 30 
+> Make sure your `area_hectares` vector contains the following values: 30, 21, 34, 39, 54, 55, 90, if not recreate it.   
+>   
+> * subset `area_hectares` to only the values equal or less than 30
 > * subset `area_hectares` to only the values 39 and 90
-> 
+> * subset `area_hectares` to only the values greater than 30 and less than 50 
+
+> Use the animals vectors to:
 > * subset `animals` to only contain 'dog' 
 > * subset `more-animals` to contain 'mouse' and 'rat'
-> 
+>     
 > * What does `"four" > "five"` return and why?
 
 ```{r, echo=FALSE, purl=TRUE}
 ### Challenge
 ## * 
 ## * What does `"four" > "five"` return and why?
+
+### Explain why this needs to be OR
+## > * subset `area_hectares` to only the values greater than 30 and less than 50 
+####      area_hectares[area_hectares < 30 | area_hectares > 50]
+
 ```
 
 <!--
@@ -658,7 +664,7 @@ area_hectares[area_hectares > 40 & area_hectares < 90]
 
 ## Vectorization
 
-Most of R’s functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+Most of R’s functions are vectorized, meaning that the function will operate on **all** elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
 
 ```{r, results='show'}
 x <- 1:4
@@ -746,14 +752,13 @@ in vectors as `NA`.
 When doing operations on numbers, most functions will return `NA` if the data
 you are working with include missing values. This feature
 makes it harder to overlook the cases where you are dealing with missing data.
-You can add the argument `na.rm=TRUE` to calculate the result while ignoring
-the missing values.
+You may remember from earlier that you can add an argument `na.rm=TRUE` to the `mean()` function to calculate the result while ignoring the missing values. The same applies for some other function, like `sum()`:
 
 ```{r, results='show', purl=FALSE}
 age <- c(2, 4, 4, NA, 6, NA, 3)
-max(age)
+mean(age)
 sum(age)
-max(age, na.rm = TRUE)
+mean(age, na.rm = TRUE)
 sum(age, na.rm = TRUE)
 ```
 
@@ -781,7 +786,7 @@ age[complete.cases(age)]
 
 > <h3>Challenge</h3>
 >
-> 1. Using this vector of length measurements, create a new vector with the NAs
+> 1. Using this vector `pop` with population counts and create a new vector with the NAs
 > removed.
 >
 >     ```r
@@ -789,18 +794,26 @@ age[complete.cases(age)]
 >     ```
 >
 > 2. Use the function `sum()` to calculate the total of the `pop`.
+> 
+> 3. Use code to determine how many NAs are in `pop`
 >
-> 3. How many of the populations are of size 15 and over?
+> 4. How many of the population counts are of size 15 and over?
 
 ```{r,echo=FALSE, purl=TRUE}
 ## Challenge
-## 1. Using this vector of length measurements, create a new vector with the NAs
+## 1. Using this vector of pop counts, create a new vector with the NAs
 ## removed.
 ##
 ##    pop <- c(10,24,NA,18,NA,20)
+##    
+##    pop[!is.na(pop)]
 ##
 ## 2. Use the function `sum()` to calculate the total of the `population`.
-## sum(pop > 15, na.rm = T)
+##    sum(pop, na.rm=T)
+## 3. How many NAs   
+##    sum(is.na(pop))
+## 4. How many of the populations are of size 15 and over?   
+##    sum(pop > 15, na.rm = T)
 ```
 
 

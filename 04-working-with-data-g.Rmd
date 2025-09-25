@@ -79,7 +79,7 @@ It is also important to know that we can, at any time, just call the function di
 
 Ok. With that out of the way you are now ready to load the data.
 
-We will use a dataset from [gapminder.org](gapminder.org) containing population information for many countries through time. This is file in CSV format. [What is a CSV file?](https://support.bigcommerce.c
+We will use a dataset from [gapminder.org](gapminder.org) containing population information for many countries through time. This is file in CSV format. [What is a CSV file?](https://en.wikipedia.org/wiki/Comma-separated_values)
 
 There are several options how you can access this file:
 
@@ -356,12 +356,13 @@ These commands are from the R base package. We will discuss a different (and mor
   
 ## Adding and removing rows and columns
 
-There are three major ways to add columns to a table. 
+There are three major ways to add columns to a table: 
+
 * Add a new column with new values. 
 * Add a new column with values derived from one or more existing columns in the table.
 * Combine (or 'join') two tables based on a common unique record identifier.
 
-We will start with the first one: add a new column with new values.
+Here we will look at with the first one: add a new column with new values.
 
 ```{r, echo=FALSE, purl=TRUE}
 

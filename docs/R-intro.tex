@@ -125,7 +125,7 @@
 
 \title{Introduction to R}
 \author{Claudia A Engel}
-\date{Last updated: September 24, 2025}
+\date{Last updated: September 25, 2025}
 
 \begin{document}
 \maketitle
@@ -970,11 +970,11 @@ Other ethical concerns have also been raised, such as reports that workers were 
 \begin{quote}
 Challenge
 
-Investigate the help of the \texttt{mean()} function
-- what does the function do?
-- how do you use it?
-- what are the arguments? which ones are required, which ones are optional?
-- what does the function return?
+Investigate the help of the \texttt{mean()} function\\
+- what does the function do?\\
+- how do you use it?\\
+- what are the arguments? which ones are required, which ones are optional?\\
+- what does the function return?\\
 - try to run the code example provided
 \end{quote}
 
@@ -1421,24 +1421,19 @@ Typically, however, these logical vectors are not typed out by hand like we just
 We use the following operators for this:
 
 \begin{itemize}
-\tightlist
 \item
-  relational operators - return logical values indicating where a relation is satisfied. The most commonly used logical operators for data analysis are as follows:
-\end{itemize}
-
-\texttt{==} means ``equal to''\footnote{The double equal sign \texttt{==} is a test for numerical equality between the left and right hand sides, and should not be confused with the single \texttt{=} sign, which performs variable assignment (similar
-  to \texttt{\textless{}-}).}\\
-\texttt{!=} means ``not equal to''\\
-\texttt{\textgreater{}} or \texttt{\textless{}} means ``greater than'' or ``less than''\\
-\texttt{\textgreater{}=} or \texttt{\textless{}=} means ``greater than or equal to'' or ``less than or equal to''
-
-\begin{itemize}
+  \textbf{relational operators} - return logical values indicating where a relation is satisfied. The most commonly used logical operators for data analysis are as follows:\\
+  \texttt{==} means ``equal to''\footnote{The double equal sign \texttt{==} is a test for numerical equality between the left and right hand sides, and should not be confused with the single \texttt{=} sign, which performs variable assignment (similar
+    to \texttt{\textless{}-}).}\\
+  \texttt{!=} means ``not equal to''\\
+  \texttt{\textgreater{}} or \texttt{\textless{}} means ``greater than'' or ``less than''\\
+  \texttt{\textgreater{}=} or \texttt{\textless{}=} means ``greater than or equal to'' or ``less than or equal to''
 \item
-  logical operators -- join subset criteria together\\
+  \textbf{logical operators} -- join subset criteria together\\
   \texttt{\&} means ``and'' -- where two criterium must both be satisfied\\
   \texttt{\textbar{}} means ``or'' -- where at least one criterium must be satisfied
 \item
-  the ``inclusion operator'' \texttt{\%in\%} -- allows you to test if any of the elements of a search vector (on the left hand side) are found in the target vector (on the right hand side).
+  \textbf{the ``inclusion operator''} \texttt{\%in\%} -- allows you to test if any of the elements of a search vector (on the left hand side) are found in the target vector (on the right hand side).
 \end{itemize}
 
 For example, we can search for certain strings in a vector. One could use the
@@ -1454,38 +1449,38 @@ For example, we can search for certain strings in a vector. One could use the
 #> [1] "rat"
 \end{verbatim}
 
-But this can quickly become tedious. The function \texttt{\%in\%} allows you to test if any of the elements of a search vector are found:
+But this can quickly become tedious if you have more strings that you want to search for. The function \texttt{\%in\%} allows you to test if any of the elements of a search vector are found:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{animals }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"frog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{, }\StringTok{"cat"}\NormalTok{) }\CommentTok{\# this creates the logical vector}
+\NormalTok{animals }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"dog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{) }\CommentTok{\# this creates the logical vector}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> [1] FALSE  TRUE FALSE FALSE
+#> [1] FALSE  TRUE  TRUE FALSE
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{animals[animals }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"frog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{, }\StringTok{"cat"}\NormalTok{)] }\CommentTok{\# we use it here in the [ ] to subset}
+\NormalTok{animals[animals }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"dog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{)] }\CommentTok{\# we use it here in the [ ] to subset}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> [1] "rat"
+#> [1] "rat" "dog"
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# The same, but here is how I would typically do it:}
-\NormalTok{animals\_to\_find }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"frog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{, }\StringTok{"cat"}\NormalTok{) }\CommentTok{\# create a vector with the values you are looking for}
+\NormalTok{animals\_to\_find }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"dog"}\NormalTok{, }\StringTok{"rat"}\NormalTok{) }\CommentTok{\# create a vector with the values you are looking for}
 \NormalTok{animals[animals }\SpecialCharTok{\%in\%}\NormalTok{ animals\_to\_find] }\CommentTok{\# apply it in the condition here}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> [1] "rat"
+#> [1] "rat" "dog"
 \end{verbatim}
 
 Equivalently, if you wanted to select only the areas above 50:
@@ -1516,17 +1511,7 @@ You can combine multiple tests using \texttt{\&} (both conditions are true, AND)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{area\_hectares[area\_hectares }\SpecialCharTok{\textless{}} \DecValTok{30} \SpecialCharTok{|}\NormalTok{ area\_hectares }\SpecialCharTok{\textgreater{}} \DecValTok{50}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-#> [1] 21 54 55 90
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{area\_hectares[area\_hectares }\SpecialCharTok{\textgreater{}} \DecValTok{40} \SpecialCharTok{\&}\NormalTok{ area\_hectares }\SpecialCharTok{\textless{}} \DecValTok{90}\NormalTok{]}
+\NormalTok{area\_hectares[area\_hectares }\SpecialCharTok{\textgreater{}} \DecValTok{50} \SpecialCharTok{\&}\NormalTok{ area\_hectares }\SpecialCharTok{\textless{}} \DecValTok{90}\NormalTok{]}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1538,14 +1523,25 @@ You can combine multiple tests using \texttt{\&} (both conditions are true, AND)
 Challenge
 
 Make sure your \texttt{area\_hectares} vector contains the following values: 30, 21, 34, 39, 54, 55, 90, if not recreate it.
-* subset \texttt{area\_hectares} to only the values equal or less than 30
-* subset \texttt{area\_hectares} to only the values 39 and 90
 
 \begin{itemize}
+\tightlist
 \item
-  subset \texttt{animals} to only contain `dog'
+  subset \texttt{area\_hectares} to only the values equal or less than 30
 \item
-  subset \texttt{more-animals} to contain `mouse' and `rat'
+  subset \texttt{area\_hectares} to only the values 39 and 90
+\item
+  subset \texttt{area\_hectares} to only the values greater than 30 and less than 50
+\end{itemize}
+\end{quote}
+
+\begin{quote}
+Use the animals vectors to:
+* subset \texttt{animals} to only contain `dog'
+* subset \texttt{more-animals} to contain `mouse' and `rat'
+
+\begin{itemize}
+\tightlist
 \item
   What does \texttt{"four"\ \textgreater{}\ "five"} return and why?
 \end{itemize}
@@ -1553,7 +1549,7 @@ Make sure your \texttt{area\_hectares} vector contains the following values: 30,
 
 \section{Vectorization}\label{vectorization}
 
-Most of R's functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+Most of R's functions are vectorized, meaning that the function will operate on \textbf{all} elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1687,13 +1683,12 @@ in vectors as \texttt{NA}.
 When doing operations on numbers, most functions will return \texttt{NA} if the data
 you are working with include missing values. This feature
 makes it harder to overlook the cases where you are dealing with missing data.
-You can add the argument \texttt{na.rm=TRUE} to calculate the result while ignoring
-the missing values.
+You may remember from earlier that you can add an argument \texttt{na.rm=TRUE} to the \texttt{mean()} function to calculate the result while ignoring the missing values. The same applies for some other function, like \texttt{sum()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{age }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{6}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\FunctionTok{max}\NormalTok{(age)}
+\FunctionTok{mean}\NormalTok{(age)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1713,12 +1708,12 @@ the missing values.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{max}\NormalTok{(age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-#> [1] 6
+#> [1] 3.8
 \end{verbatim}
 
 \begin{Shaded}
@@ -1801,7 +1796,7 @@ Challenge
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Using this vector of length measurements, create a new vector with the NAs
+  Using this vector \texttt{pop} with population counts and create a new vector with the NAs
   removed.
 
 \begin{Shaded}
@@ -1812,7 +1807,9 @@ Challenge
 \item
   Use the function \texttt{sum()} to calculate the total of the \texttt{pop}.
 \item
-  How many of the populations are of size 15 and over?
+  Use code to determine how many NAs are in \texttt{pop}
+\item
+  How many of the population counts are of size 15 and over?
 \end{enumerate}
 \end{quote}
 
@@ -2888,7 +2885,7 @@ It is also important to know that we can, at any time, just call the function di
 
 Ok. With that out of the way you are now ready to load the data.
 
-We will use a dataset from \url{gapminder.org} containing population information for many countries through time. This is file in CSV format. {[}What is a CSV file?{]}(\url{https://support.bigcommerce.c}
+We will use a dataset from \url{gapminder.org} containing population information for many countries through time. This is file in CSV format. \href{https://en.wikipedia.org/wiki/Comma-separated_values}{What is a CSV file?}
 
 There are several options how you can access this file:
 
@@ -3182,12 +3179,19 @@ These commands are from the R base package. We will discuss a different (and mor
 
 \section{Adding and removing rows and columns}\label{adding-and-removing-rows-and-columns-1}
 
-There are three major ways to add columns to a table.
-* Add a new column with new values.
-* Add a new column with values derived from one or more existing columns in the table.
-* Combine (or `join') two tables based on a common unique record identifier.
+There are three major ways to add columns to a table:
 
-We will start with the first one: add a new column with new values.
+\begin{itemize}
+\tightlist
+\item
+  Add a new column with new values.
+\item
+  Add a new column with values derived from one or more existing columns in the table.
+\item
+  Combine (or `join') two tables based on a common unique record identifier.
+\end{itemize}
+
+Here we will look at with the first one: add a new column with new values.
 
 To add a new column to the data frame we can use the \texttt{cbind()} function There also is a \texttt{bind\_cols()} function from \texttt{dplyr} package (part of the \texttt{tidyverse}). An important difference with \texttt{bind\_cols()} is that it displays an error message when you try to combine with vector that has fewer or more elements than the number of rows in the table. \texttt{cbind()} on the other hand, silently repeats values or rows, so you might introduce errors and be unaware of it.
 
